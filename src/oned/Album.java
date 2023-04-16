@@ -18,7 +18,8 @@ public class Album extends javax.swing.JFrame {
     public Album() {
         
         initComponents();
-       
+        setResizable(false);
+        setTitle("Album");
     }
 
     /**

@@ -13,8 +13,12 @@ public class Artist extends javax.swing.JFrame {
     /**
      * Creates new form Artist
      */
+    Album album;
+    Song song;
     public Artist() {
         initComponents();
+        setResizable(false);
+        setTitle("Artist");
     }
 
     /**
@@ -59,15 +63,29 @@ public class Artist extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(50, 114, 233));
 
         jLabel1.setFont(new java.awt.Font("Poppins Medium", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("OneD");
 
         jLabel3.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Album");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Song");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Studio");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -111,9 +129,12 @@ public class Artist extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ARTIST");
 
+        AddA.setBackground(new java.awt.Color(50, 114, 233));
         AddA.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        AddA.setForeground(new java.awt.Color(255, 255, 255));
         AddA.setText("Add Artist");
         AddA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +142,9 @@ public class Artist extends javax.swing.JFrame {
             }
         });
 
+        UpdateA.setBackground(new java.awt.Color(50, 114, 233));
         UpdateA.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        UpdateA.setForeground(new java.awt.Color(255, 255, 255));
         UpdateA.setText("Update Artist");
 
         SearchBox.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +153,9 @@ public class Artist extends javax.swing.JFrame {
             }
         });
 
+        FindA.setBackground(new java.awt.Color(50, 114, 233));
         FindA.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        FindA.setForeground(new java.awt.Color(255, 255, 255));
         FindA.setText("Find");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -192,6 +217,19 @@ public class Artist extends javax.swing.JFrame {
     private void SearchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchBoxActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        album = new Album();
+        album.setVisible(true);
+        album.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+       song = new Song();
+       song.setVisible(true);
+       song.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+       
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
