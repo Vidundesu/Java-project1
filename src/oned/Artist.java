@@ -15,6 +15,8 @@ public class Artist extends javax.swing.JFrame {
      */
     Album album;
     Song song;
+    Studio studio;
+    
     public Artist() {
         initComponents();
         setResizable(false);
@@ -87,6 +89,11 @@ public class Artist extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Studio");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -230,6 +237,12 @@ public class Artist extends javax.swing.JFrame {
        song.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
        
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        studio = new Studio();
+        studio.setVisible(true);
+        studio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments

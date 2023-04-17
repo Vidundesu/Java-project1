@@ -16,7 +16,7 @@ public class Dashboard extends javax.swing.JFrame {
     Artist artist;
     Album album;
     Song song;
-    
+    Studio studio;
     public Dashboard() {
         
         initComponents();
@@ -92,6 +92,11 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         studioD.setText("Studio");
+        studioD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studioDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,6 +169,12 @@ public class Dashboard extends javax.swing.JFrame {
        song.setVisible(true);
        song.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_songDActionPerformed
+
+    private void studioDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studioDActionPerformed
+        studio = new Studio();
+        studio.setVisible(true);
+        studio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_studioDActionPerformed
 
     /**
      * @param args the command line arguments
