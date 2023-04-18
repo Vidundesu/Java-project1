@@ -153,26 +153,50 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void artistDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistDActionPerformed
-        artist = new Artist();
-        artist.setVisible(true);
+       if(artist==null){
+            artist = new Artist();          
+            artist.setVisible(true);   
+       }
+       else{
+           artistD.disable();
+       } //if artist is null the button will proceed to make one, if its already there the button will be disabled
+       
+        
         artist.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_artistDActionPerformed
 
     private void albumDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_albumDActionPerformed
-       album = new Album();
-       album.setVisible(true);
+      if(album==null){
+            album = new Album();
+            album.setVisible(true);   
+      }
+      else{
+          albumD.disable();
+      }
+       
        album.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_albumDActionPerformed
 
     private void songDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_songDActionPerformed
-       song = new Song();
-       song.setVisible(true);
+       if(song==null){
+            song = new Song();
+            song.setVisible(true);
+       }
+       else{
+           songD.disable();
+       }
        song.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_songDActionPerformed
 
     private void studioDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studioDActionPerformed
-        studio = new Studio();
-        studio.setVisible(true);
+        if(studio==null){
+            studio = new Studio();
+            studio.setVisible(true);
+        }
+        else{
+            studioD.disable();
+        }
+        
         studio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_studioDActionPerformed
 
