@@ -13,14 +13,20 @@ public class Artist extends javax.swing.JFrame {
     /**
      * Creates new form Artist
      */
+    
     Album album;
     Song song;
     Studio studio;
+    Manager manager;
+    
+    Connect conn;
     
     public Artist() {
+        conn = new Connect();
         initComponents();
         setResizable(false);
         setTitle("Artist");
+        
     }
 
     /**
@@ -39,6 +45,7 @@ public class Artist extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -119,6 +126,15 @@ public class Artist extends javax.swing.JFrame {
             }
         });
 
+        jLabel19.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Manager");
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -126,12 +142,14 @@ public class Artist extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(412, 412, 412)
+                .addGap(380, 380, 380)
                 .addComponent(jLabel3)
                 .addGap(125, 125, 125)
                 .addComponent(jLabel4)
                 .addGap(131, 131, 131)
                 .addComponent(jLabel5)
+                .addGap(105, 105, 105)
+                .addComponent(jLabel19)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -142,7 +160,8 @@ public class Artist extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel19))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -338,9 +357,9 @@ public class Artist extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(monthA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(monthA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dayA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -352,9 +371,9 @@ public class Artist extends javax.swing.JFrame {
                             .addComponent(ByearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BmonthA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(BmonthA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BdayA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,7 +396,27 @@ public class Artist extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAActionPerformed
-        // TODO add your handling code here:
+
+        String idIn = idInputA.getText();
+        int id = Integer.parseInt(idIn);
+        
+        String firstName = firstNameA.getText();
+        String lastName = lastNameA.getText();
+        String genre = genreA.getText();
+        String country = countryA.getText();
+        
+        String a = yearA.getText();
+
+        
+        String a1 = ByearA.getText();
+
+        
+       if(conn.ArtistInsertData(id,firstName,lastName,genre,country,a,a1)){
+           System.out.println("Success");
+       }
+       else{
+           System.out.println("fail");
+       }
     }//GEN-LAST:event_AddAActionPerformed
 
     private void SearchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBoxActionPerformed
@@ -417,6 +456,17 @@ public class Artist extends javax.swing.JFrame {
         }
         studio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        if(manager==null){
+            manager = new Manager();
+            manager.setVisible(true);
+        }
+        else{
+            jLabel19.disable();
+        }
+        manager.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel19MouseClicked
 
     /**
      * @param args the command line arguments
@@ -477,6 +527,7 @@ public class Artist extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
