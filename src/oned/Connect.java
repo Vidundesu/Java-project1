@@ -10,15 +10,22 @@ package oned;
  */
 import java.sql.*;
 import java.sql.SQLException;
-public class Connect {
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class Connect  {
     
     private final String url;
     private Connection conn;
+  
     
     public Connect(){
+        
+       
         this.url="jdbc:sqlserver://localhost:1433;databaseName=oneD;username=sa;password=1234;";
         this.connectDb();
     }
+    
     public boolean connectDb(){
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -34,7 +41,7 @@ public class Connect {
                 conn.close();
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            System.out.println("fail");
         }
         
     }
@@ -47,5 +54,33 @@ public class Connect {
         }catch(SQLException e){
             return false;
         }
+        
     }
+    public boolean displayData(JTable TableA) {
+    try {
+        Statement stmt = conn.createStatement();
+        String query = "SELECT * FROM artist";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            String id = String.valueOf(rs.getInt("artistID"));
+            String Fname = rs.getString("first_name");
+            String Lname = rs.getString("last_name");
+            String genre = rs.getString("genre");
+            String country = rs.getString("country");
+            String jd = rs.getString("joining_date");
+            String dob = rs.getString("DOB");
+            String mid = String.valueOf(rs.getInt("managerID"));
+
+           String tbData[] = { id, Fname, Lname, genre, country, jd, dob, mid };
+            DefaultTableModel model = (DefaultTableModel) TableA.getModel();
+            model.addRow(tbData);
+        }
+       
+        return true;
+    }catch (SQLException e) {
+        System.out.println(e.getMessage());
+        }
+     return false;
+    }
+    
 }
