@@ -7,6 +7,7 @@ package oned;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -27,14 +28,14 @@ public class Artist extends javax.swing.JFrame {
     Manager manager;
 
     
-    Connect  conn;
+    ArtistConnect  conn;
     
     public Artist() {
-       conn = new Connect();
+       conn = new ArtistConnect();
         initComponents();
         setResizable(false);
         setTitle("Artist");
-        
+        conn.displayData(TableA);
         
        
     }
@@ -78,6 +79,8 @@ public class Artist extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         yearA = new javax.swing.JTextField();
         refreshBtn = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        managerA = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -194,6 +197,11 @@ public class Artist extends javax.swing.JFrame {
         UpdateA.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         UpdateA.setForeground(new java.awt.Color(255, 255, 255));
         UpdateA.setText("Update Artist");
+        UpdateA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateAActionPerformed(evt);
+            }
+        });
 
         SearchBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +213,16 @@ public class Artist extends javax.swing.JFrame {
         FindA.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         FindA.setForeground(new java.awt.Color(255, 255, 255));
         FindA.setText("Find");
+        FindA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FindAMouseClicked(evt);
+            }
+        });
+        FindA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FindAActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -241,6 +259,10 @@ public class Artist extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Manager");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -262,7 +284,7 @@ public class Artist extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(AddA))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, Short.MAX_VALUE))
+                        .addGap(70, 75, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(refreshBtn)
@@ -282,56 +304,66 @@ public class Artist extends javax.swing.JFrame {
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ByearA)
                     .addComponent(yearA))
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(managerA, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(idInputA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(firstNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(idInputA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(firstNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lastNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(genreA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(countryA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(yearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ByearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(refreshBtn))
+                                .addGap(31, 31, 31))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(AddA)
+                                        .addComponent(UpdateA)
+                                        .addComponent(SearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(FindA)))
+                                .addGap(52, 52, 52)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(genreA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(countryA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(yearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ByearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(refreshBtn))
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(AddA)
-                                .addComponent(UpdateA)
-                                .addComponent(SearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(FindA)))
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(managerA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -356,6 +388,9 @@ public class Artist extends javax.swing.JFrame {
         String idIn = idInputA.getText();
         int id = Integer.parseInt(idIn);
         
+        String mId = managerA.getText();  //manager ID
+        int managerId = Integer.parseInt(mId);
+        
         String firstName = firstNameA.getText();
         String lastName = lastNameA.getText();
         String genre = genreA.getText();
@@ -365,10 +400,13 @@ public class Artist extends javax.swing.JFrame {
         String DOB = ByearA.getText();
 
         
-       if(conn.ArtistInsertData(id,firstName,lastName,genre,country,JD,DOB)){
+       if(conn.ArtistInsertData(id,firstName,lastName,genre,country,JD,DOB,managerId)) //Check the return statement (true or false) of insert function, according to return value it will print either success or fail
+       {
+           JOptionPane.showMessageDialog(this, "Record Inserted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
            System.out.println("Success");
        }
        else{
+          
            System.out.println("fail");
        }
     }//GEN-LAST:event_AddAActionPerformed
@@ -423,14 +461,55 @@ public class Artist extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel19MouseClicked
 
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-        if(conn.displayData(TableA)){
+       
+    }//GEN-LAST:event_refreshBtnActionPerformed
+
+    private void FindAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindAActionPerformed
+        String idIn = SearchBox.getText();
+        int id = Integer.parseInt(idIn);
+        DefaultTableModel model = (DefaultTableModel) TableA.getModel();
+        model.setRowCount(0); // remove all data from the table 
+        
+        if(conn.SearchArtistData(id, TableA)){
             System.out.println("success");
+          
         }
         else{
-           
-             System.out.println("fail");
+            System.out.println("fail");
+            JOptionPane.showMessageDialog(this, "Data not found! " , "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_refreshBtnActionPerformed
+    }//GEN-LAST:event_FindAActionPerformed
+
+    private void FindAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FindAMouseClicked
+        
+
+    }//GEN-LAST:event_FindAMouseClicked
+
+    private void UpdateAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateAActionPerformed
+        
+        String idIn = idInputA.getText();
+        int id = Integer.parseInt(idIn);
+        
+        String mId = managerA.getText();  //manager ID
+        int managerId = Integer.parseInt(mId);
+        
+        String firstName = firstNameA.getText();
+        String lastName = lastNameA.getText();
+        String genre = genreA.getText();
+        String country = countryA.getText();
+        
+        String JD = yearA.getText();  
+        String DOB = ByearA.getText();
+        if(conn.ArtistUpdateData(id,TableA,firstName,lastName,genre,country,JD,DOB,managerId)) 
+       {
+           JOptionPane.showMessageDialog(this, "Record Updated Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
+           System.out.println("Success");
+       }
+       else{
+           System.out.println("fail");
+            JOptionPane.showMessageDialog(this, "Data Did Not Updated! " , "Error", JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_UpdateAActionPerformed
 
     /**
      * @param args the command line arguments
@@ -490,10 +569,12 @@ public class Artist extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastNameA;
+    private javax.swing.JTextField managerA;
     private javax.swing.JButton refreshBtn;
     private javax.swing.JLabel songL;
     private javax.swing.JLabel studioL;
