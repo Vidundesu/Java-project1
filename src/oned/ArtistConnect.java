@@ -104,7 +104,7 @@ public class ArtistConnect  {
         return false;
     }
     
-    public boolean ArtistUpdateData(int id, JTable TableA, String firstName, String lastName, String genre, String country, String JD, String DOB, int managerID){
+    public boolean ArtistUpdateData(int id, String firstName, String lastName, String genre, String country, String JD, String DOB, int managerID){
         try{
             Statement stmt = conn.createStatement();    
             

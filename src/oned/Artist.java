@@ -4,9 +4,6 @@
  */
 package oned;
 
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -500,7 +497,7 @@ public class Artist extends javax.swing.JFrame {
         
         String JD = yearA.getText();  
         String DOB = ByearA.getText();
-        if(conn.ArtistUpdateData(id,TableA,firstName,lastName,genre,country,JD,DOB,managerId)) 
+        if(conn.ArtistUpdateData(id,firstName,lastName,genre,country,JD,DOB,managerId)) 
        {
            JOptionPane.showMessageDialog(this, "Record Updated Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
            System.out.println("Success");

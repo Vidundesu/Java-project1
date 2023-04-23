@@ -4,6 +4,12 @@
  */
 package oned;
 
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Time;
+
+
 /**
  *
  * @author User
@@ -17,10 +23,16 @@ public class Song extends javax.swing.JFrame {
     Artist artist;
     Studio studio;
     Manager manager;
+    SongConnect conn;
+    Time durationTime;
+  
     
     public Song() {
+        conn = new SongConnect();
+        
         initComponents();
         setResizable(false);
+        conn.DisplayData(TableSong);
     }
 
     /**
@@ -43,22 +55,21 @@ public class Song extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableSong = new javax.swing.JTable();
         AddS = new javax.swing.JButton();
         UpdateS = new javax.swing.JButton();
         FindS = new javax.swing.JButton();
         SearchBoxS = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        idS = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         nameS = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         durationS = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         trackS = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        albumIn = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,18 +178,15 @@ public class Song extends javax.swing.JFrame {
                     .addContainerGap(25, Short.MAX_VALUE)))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableSong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Name", "Duration", "Track Number", "AlbumID"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TableSong);
 
         AddS.setBackground(new java.awt.Color(50, 114, 223));
         AddS.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -199,6 +207,16 @@ public class Song extends javax.swing.JFrame {
         FindS.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         FindS.setForeground(new java.awt.Color(255, 255, 255));
         FindS.setText("Find");
+        FindS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FindSMouseClicked(evt);
+            }
+        });
+        FindS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FindSActionPerformed(evt);
+            }
+        });
 
         SearchBoxS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,10 +227,6 @@ public class Song extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("SONGS");
-
-        jLabel10.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("ID*");
 
         jLabel11.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,13 +240,16 @@ public class Song extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Track Number");
 
-        jComboBox1.setBackground(new java.awt.Color(50, 114, 233));
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel1.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Album");
+
+        jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -253,27 +270,27 @@ public class Song extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(AddS))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idS)
-                            .addComponent(nameS)
-                            .addComponent(durationS)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel10))
-                                .addGap(0, 29, Short.MAX_VALUE))
-                            .addComponent(trackS))
-                        .addGap(76, 76, 76))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(albumIn, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nameS, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(durationS, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel11))
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(trackS, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(74, 74, 74))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(389, 389, 389)
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,10 +309,6 @@ public class Song extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(idS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nameS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,9 +322,11 @@ public class Song extends javax.swing.JFrame {
                         .addComponent(trackS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
-                        .addGap(12, 12, 12)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(albumIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -350,17 +365,40 @@ public class Song extends javax.swing.JFrame {
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
        
        if(album==null){
+           album = new Album();       
            album.setVisible(true);
-           album.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+           
        }
        else{
-           album.disable();
+          jLabel9.disable();
        }
         album.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void AddSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSActionPerformed
-        // TODO add your handling code here:
+       
+        String name = nameS.getText();
+
+        int duration = Integer.parseInt(durationS.getText());
+        Time durationTime = new Time(duration * 1000);
+        int minutes = duration / 60;
+        int seconds = duration % 60;
+        
+        //SimpleDateFormat format = new SimpleDateFormat("mm:ss");
+        String durationFormatted = String.format("00:%02d:%02d",minutes,seconds);
+
+
+        int trackNo = Integer.parseInt(trackS.getText());
+        int albumId = Integer.parseInt(albumIn.getText());
+
+        if(conn.AddSongData(name,durationFormatted, trackNo, albumId)){
+            System.out.println("SUCCESS");
+        }
+        else{
+            System.out.println("fail");
+        }
+
+        
     }//GEN-LAST:event_AddSActionPerformed
 
     private void SearchBoxSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBoxSActionPerformed
@@ -369,12 +407,11 @@ public class Song extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
       if(studio==null){
+          studio = new Studio();
           studio.setVisible(true);
-          studio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          
       }
       else{
-          studio.disable();
+          jLabel7.disable();
       }
        studio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel7MouseClicked
@@ -389,6 +426,30 @@ public class Song extends javax.swing.JFrame {
         }
         manager.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void FindSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindSActionPerformed
+        int id = Integer.parseInt(SearchBoxS.getText());
+        DefaultTableModel model = (DefaultTableModel) TableSong.getModel();
+        model.setRowCount(0);  
+            if(conn.SearchSongData(id,TableSong)){
+                System.out.println("success");
+            }
+            else{
+
+                System.out.println("fail");
+                JOptionPane.showMessageDialog(this, "Data not found! " , "Error", JOptionPane.ERROR_MESSAGE);
+            }
+              
+        
+    }//GEN-LAST:event_FindSActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        conn.DisplayData(TableSong);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void FindSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FindSMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FindSMouseClicked
 
     /**
      * @param args the command line arguments
@@ -429,12 +490,12 @@ public class Song extends javax.swing.JFrame {
     private javax.swing.JButton AddS;
     private javax.swing.JButton FindS;
     private javax.swing.JTextField SearchBoxS;
+    private javax.swing.JTable TableSong;
     private javax.swing.JButton UpdateS;
+    private javax.swing.JTextField albumIn;
     private javax.swing.JTextField durationS;
-    private javax.swing.JTextField idS;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
@@ -450,7 +511,6 @@ public class Song extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nameS;
     private javax.swing.JTextField trackS;
     // End of variables declaration//GEN-END:variables

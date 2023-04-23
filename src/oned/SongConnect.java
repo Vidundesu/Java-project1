@@ -5,20 +5,22 @@
 package oned;
 
 
-import java.sql.SQLException;
 import java.sql.*;
+import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
  */
-public class AlbumConnect {
+public class SongConnect {
     private final String url;
     private Connection conn;
     
     
-    public AlbumConnect(){
+    public SongConnect(){
+     
         this.url="jdbc:sqlserver://localhost:1433;databaseName=oneD;username=sa;password=1234;";
         this.connectDb();
     }
@@ -41,53 +43,58 @@ public class AlbumConnect {
             System.out.println("fail");
         }
     }
-    public boolean AddAlbumData(int id, String name, String recordDate, String releaseDate){
+    public boolean AddSongData (String name, String duration, int trackNo, int albumID ){
         try{
             Statement stmt = conn.createStatement();
-            String query = "INSERT INTO album (albumID, album_name, release_yr, record_yr)VALUES ("+id+",'"+name+"','"+releaseDate+"','"+recordDate+"')";
+            String query = "INSERT INTO song (song_name, duration, albumID, track_no) VALUES ('"+name+"','"+duration+"',"+albumID+","+trackNo+")";
             stmt.execute(query);
             return true;
-        }catch(SQLException e){
+        }catch(SQLException | NumberFormatException e){
+            System.out.println(e.getMessage());
             return false;
         }
     }
-    public boolean DisplayData(JTable TableAlbum){
+
+   public boolean DisplayData(JTable TableSong){
         try{
             Statement stmt = conn.createStatement();
-            String query = "SELECT * FROM album";
+            String query = "SELECT * FROM song";
             ResultSet rs = stmt.executeQuery(query);
-            
+
             while(rs.next()){
-                String id = String.valueOf(rs.getInt("albumID"));
-                String name = rs.getString("album_name");
-                String releaseDate =rs.getString("release_yr");
-                String recordDate = rs.getString("record_yr");
-                
-                String tbData[] = {id, name, releaseDate, recordDate};
-                DefaultTableModel model = (DefaultTableModel) TableAlbum.getModel();
+                String id = String.valueOf(rs.getInt("songID"));
+                String name = rs.getString("song_name");
+                Time duration = rs.getTime("duration");
+                String trackNo = String.valueOf(rs.getInt("track_no"));
+                String albumId = String.valueOf(rs.getInt("albumID"));
+
+                String tbData[]= {id, name, duration.toString(),trackNo,albumId,};
+                DefaultTableModel model = (DefaultTableModel) TableSong.getModel();
                 model.addRow(tbData);
             }
             return true;
-        }catch(Exception e){
+        } catch(SQLException e){
             return false;
         }
-    }
-    public boolean SearchAlbumData(int id, JTable TableAlbum){
+   }
+   
+    public boolean SearchSongData(int idIn, JTable TableSong){
         try{
             Statement stmt = conn.createStatement();
-            String query = "SELECT * FROM album WHERE albumID="+id+";";
+            String query = "SELECT * FROM song WHERE songID="+idIn+";";
             ResultSet rs = stmt.executeQuery(query);
             
             while(rs.next()){
                 do{
-                    String idin = String.valueOf(rs.getInt("albumID"));
-                    String name = rs.getString("album_name");
-                    String releaseDate =rs.getString("release_yr");
-                    String recordDate = rs.getString("record_yr");
+                String id = String.valueOf(rs.getInt("songID"));
+                String name = rs.getString("song_name");
+                Time duration = rs.getTime("duration");
+                String albumId = String.valueOf(rs.getInt("albumID"));
+                String trackNo = String.valueOf(rs.getInt("track_no"));
 
-                    String tbData[] = {idin, name, releaseDate, recordDate};
-                    DefaultTableModel model = (DefaultTableModel) TableAlbum.getModel();
-                    model.addRow(tbData);
+                String tbData[]= {id, name, duration.toString(), albumId, trackNo};
+                DefaultTableModel model = (DefaultTableModel) TableSong.getModel();
+                model.addRow(tbData);
                 }while(rs.next());
             }
             return true;
@@ -98,7 +105,7 @@ public class AlbumConnect {
     public boolean SearchData(int id){
         try{
             Statement stmt = conn.createStatement();
-            String query = "SELECT * FROM album";
+            String query = "SELECT * FROM song";
             ResultSet rs = stmt.executeQuery(query);
             
             while(rs.next()){
@@ -111,17 +118,13 @@ public class AlbumConnect {
             return false;
         }
     }
-    public boolean UpdateAlbumData(int id, String name, String releaseDate, String recordDate){
+    public boolean UpdateSongData(int id, String name, String duration, int track_no, int albumId){
         try{
-            Statement stmt = conn.createStatement();
-            if(SearchData(id)){
-                String query = "UPDATE album SET album_name="+name+", release_yr='"+releaseDate+"', record_yr='"+recordDate+"';";
-                stmt.executeUpdate(query);
-                return true;
-            }
-        }catch(SQLException e){
-            return false;
+            
+        }catch(){
+            
         }
-        return false;
     }
 }
+
+
