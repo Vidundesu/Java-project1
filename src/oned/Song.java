@@ -4,7 +4,6 @@
  */
 package oned;
 
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Time;
@@ -379,15 +378,11 @@ public class Song extends javax.swing.JFrame {
        
         String name = nameS.getText();
 
-        int duration = Integer.parseInt(durationS.getText());
-        Time durationTime = new Time(duration * 1000);
-        int minutes = duration / 60;
-        int seconds = duration % 60;
-        
-        //SimpleDateFormat format = new SimpleDateFormat("mm:ss");
-        String durationFormatted = String.format("00:%02d:%02d",minutes,seconds);
-
-
+        int duration = Integer.parseInt(durationS.getText()); //collect duration data from user in seconds(integer type)
+        int minutes = duration / 60;                            //divide seconds by 60 to make minutes
+        int seconds = duration % 60;                            //using modulus to get remainder of seconds.
+        String durationFormatted = String.format("00:%02d:%02d",minutes,seconds);   /* convert integers into String and format it into "HH:mm:ss" pattern. 
+                                                                                                      "%02d" is an integer format specifier that uses to format with a zero if the value is less than 10 (eg: 00:04:02) */
         int trackNo = Integer.parseInt(trackS.getText());
         int albumId = Integer.parseInt(albumIn.getText());
 

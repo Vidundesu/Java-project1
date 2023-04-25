@@ -4,6 +4,9 @@
  */
 package oned;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
@@ -17,10 +20,14 @@ public class Studio extends javax.swing.JFrame {
     Artist artist;
     Song song;
     Manager manager;
+    StudioConnect conn;
     
     public Studio() {
+    
         initComponents();
+        conn = new StudioConnect();
         setResizable(false);
+        conn.DisplayData(TableStudio);
     }
 
     /**
@@ -40,7 +47,7 @@ public class Studio extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableStudio = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         AddSt = new javax.swing.JButton();
         UpdateSt = new javax.swing.JButton();
@@ -56,6 +63,8 @@ public class Studio extends javax.swing.JFrame {
         timeSt = new javax.swing.JTextField();
         costSt = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        closeTimeSt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Studio");
@@ -135,18 +144,15 @@ public class Studio extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableStudio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Name", "Hourly Cost", "Open time", "Close time", "Location"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TableStudio);
 
         jLabel2.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -156,6 +162,11 @@ public class Studio extends javax.swing.JFrame {
         AddSt.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         AddSt.setForeground(new java.awt.Color(255, 255, 255));
         AddSt.setText("Add Studio");
+        AddSt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddStActionPerformed(evt);
+            }
+        });
 
         UpdateSt.setBackground(new java.awt.Color(50, 114, 223));
         UpdateSt.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -166,6 +177,11 @@ public class Studio extends javax.swing.JFrame {
         FindSt.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         FindSt.setForeground(new java.awt.Color(255, 255, 255));
         FindSt.setText("Find");
+        FindSt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FindStActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,6 +203,10 @@ public class Studio extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Hourly Cost");
 
+        jLabel18.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Close Time");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -195,7 +215,6 @@ public class Studio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -205,8 +224,9 @@ public class Studio extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(UpdateSt)
                         .addGap(18, 18, 18)
-                        .addComponent(AddSt)))
-                .addGap(80, 80, 80)
+                        .addComponent(AddSt))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel17)
                     .addComponent(jLabel16)
@@ -217,7 +237,9 @@ public class Studio extends javax.swing.JFrame {
                     .addComponent(nameSt)
                     .addComponent(locationSt)
                     .addComponent(timeSt)
-                    .addComponent(costSt, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(costSt, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(jLabel18)
+                    .addComponent(closeTimeSt))
                 .addContainerGap(233, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -255,6 +277,10 @@ public class Studio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(timeSt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(closeTimeSt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(costSt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -324,6 +350,38 @@ public class Studio extends javax.swing.JFrame {
         manager.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jLabel11MouseClicked
 
+    private void AddStActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStActionPerformed
+        int id = Integer.parseInt(idSt.getText());
+        String name = nameSt.getText();
+        float money = Float.parseFloat(costSt.getText());
+        String openTime = timeSt.getText();
+        String closeTime = closeTimeSt.getText();
+        String location = locationSt.getText();
+        
+        if(conn.AddStudioData(id, name, money, openTime, closeTime, location)){
+            System.out.println("success");
+        }
+        else{
+            System.out.println("fail");
+        }
+        
+        
+    }//GEN-LAST:event_AddStActionPerformed
+
+    private void FindStActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindStActionPerformed
+       int id = Integer.parseInt(SearchBoxSt.getText());
+       DefaultTableModel model = (DefaultTableModel) TableStudio.getModel();
+       model.setRowCount(0);
+       
+       if(conn.SearchStudioData(id, TableStudio)){
+           System.out.println("success");
+       }
+       else{
+           System.out.println("fail");
+            JOptionPane.showMessageDialog(this, "Data not found! " , "Error", JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_FindStActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -363,7 +421,9 @@ public class Studio extends javax.swing.JFrame {
     private javax.swing.JButton AddSt;
     private javax.swing.JButton FindSt;
     private javax.swing.JTextField SearchBoxSt;
+    private javax.swing.JTable TableStudio;
     private javax.swing.JButton UpdateSt;
+    private javax.swing.JTextField closeTimeSt;
     private javax.swing.JTextField costSt;
     private javax.swing.JTextField idSt;
     private javax.swing.JLabel jLabel1;
@@ -372,6 +432,7 @@ public class Studio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -380,7 +441,6 @@ public class Studio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField locationSt;
     private javax.swing.JTextField nameSt;
     private javax.swing.JTextField timeSt;

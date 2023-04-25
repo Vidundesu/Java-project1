@@ -13,6 +13,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author User
  */
+
+/*
+===============
+    Outcome
+===============
+    To handle INSERT, SEARCH, UPDATE and DELETE functions.
+    To Display Data within the Table: DisplayData() method.
+*/
 public class AlbumConnect {
     private final String url;
     private Connection conn;
@@ -95,6 +103,7 @@ public class AlbumConnect {
             return false;
         }
     }
+    //This function helps to UPDATE and DELETE functions to search availability of data according to input(id)
     public boolean SearchData(int id){
         try{
             Statement stmt = conn.createStatement();
@@ -116,12 +125,15 @@ public class AlbumConnect {
             Statement stmt = conn.createStatement();
             if(SearchData(id)){
                 String query = "UPDATE album SET album_name="+name+", release_yr='"+releaseDate+"', record_yr='"+recordDate+"';";
-                stmt.executeUpdate(query);
+                stmt.executeUpdate(query);   
                 return true;
             }
+            else{
+                return false;
+            }
+            
         }catch(SQLException e){
             return false;
         }
-        return false;
     }
 }

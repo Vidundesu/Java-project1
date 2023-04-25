@@ -14,10 +14,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author User
  */
+
+/*
+===============
+    Outcome
+===============
+    This java class will help the program,
+    To handle INSERT, SEARCH, UPDATE and DELETE functions.
+    To Display Data within the Table: DisplayData() method.
+*/
+
 public class SongConnect {
+    
     private final String url;
     private Connection conn;
-    
     
     public SongConnect(){
      
@@ -50,11 +60,11 @@ public class SongConnect {
             stmt.execute(query);
             return true;
         }catch(SQLException | NumberFormatException e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()); //output: catched error on the console.
             return false;
         }
     }
-
+   
    public boolean DisplayData(JTable TableSong){
         try{
             Statement stmt = conn.createStatement();
@@ -102,6 +112,8 @@ public class SongConnect {
             return false;
         }
     }
+    
+    //This function helps to UPDATE and DELETE functions to search availability of data according to input(id)
     public boolean SearchData(int id){
         try{
             Statement stmt = conn.createStatement();
@@ -120,9 +132,17 @@ public class SongConnect {
     }
     public boolean UpdateSongData(int id, String name, String duration, int track_no, int albumId){
         try{
-            
-        }catch(){
-            
+            Statement stmt = conn.createStatement();
+            if(SearchData(id)){
+                String query = "UPDATE song SET song_name='"+name+"', duration='"+duration+"', track_no="+track_no+", albumID="+albumId+"";
+                stmt.executeUpdate(query);
+                return true;
+            }  
+            else{
+                return false;
+            }
+        }catch(SQLException e){
+            return false;
         }
     }
 }

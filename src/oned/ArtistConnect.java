@@ -8,11 +8,23 @@ package oned;
  *
  * @author User
  */
+
+
+
 import java.sql.*;
 import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+
+/*
+===============
+    Outcome
+===============
+    This java class will help the program,
+    To handle INSERT, SEARCH, UPDATE and DELETE functions.
+    To Display Data within the Table (DisplayData() method)
+*/
 public class ArtistConnect  {
     
     private final String url;
@@ -86,7 +98,9 @@ public class ArtistConnect  {
         }
         return false;
     }
-    public boolean SearchData(int idIn){ //uses to help for update function to check whether the relevent row is available or not
+    
+     //This function helps to UPDATE and DELETE functions to search availability of data according to input(id)
+    public boolean SearchData(int idIn){ 
         try{
             Statement stmt = conn.createStatement();
             String query ="SELECT * FROM artist WHERE artistID="+idIn+";";
