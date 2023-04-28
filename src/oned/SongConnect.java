@@ -114,10 +114,10 @@ public class SongConnect {
     }
     
     //This function helps to UPDATE and DELETE functions to search availability of data according to input(id)
-    public boolean SearchData(int id){
+    public boolean SearchData(int track){
         try{
             Statement stmt = conn.createStatement();
-            String query = "SELECT * FROM song";
+            String query = "SELECT * FROM song WHERE track_no="+track+"";
             ResultSet rs = stmt.executeQuery(query);
             
             while(rs.next()){
@@ -130,11 +130,11 @@ public class SongConnect {
             return false;
         }
     }
-    public boolean UpdateSongData(int id, String name, String duration, int track_no, int albumId){
+    public boolean UpdateSongData( String name, String duration, int track, int albumId){
         try{
             Statement stmt = conn.createStatement();
-            if(SearchData(id)){
-                String query = "UPDATE song SET song_name='"+name+"', duration='"+duration+"', track_no="+track_no+", albumID="+albumId+"";
+            if(SearchData(track)){
+                String query = "UPDATE song SET song_name='"+name+"', duration='"+duration+"', albumID="+albumId+" WHERE song_name="+track+"";
                 stmt.executeUpdate(query);
                 return true;
             }  
@@ -142,6 +142,23 @@ public class SongConnect {
                 return false;
             }
         }catch(SQLException e){
+            return false;
+        }
+    }
+    public boolean DeleteSongData(int track){
+        try{
+            Statement stmt = conn.createStatement();
+            if(SearchData(track)){
+                String query="DELETE FROM song WHERE track_no="+track+";";
+                stmt.executeUpdate(query);
+                return true;
+            }
+            else{
+                return false;
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
             return false;
         }
     }

@@ -69,6 +69,7 @@ public class Song extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         albumIn = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        SongDelete = new javax.swing.JButton();
 
         jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,6 +202,11 @@ public class Song extends javax.swing.JFrame {
         UpdateS.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         UpdateS.setForeground(new java.awt.Color(255, 255, 255));
         UpdateS.setText("Update Song");
+        UpdateS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateSActionPerformed(evt);
+            }
+        });
 
         FindS.setBackground(new java.awt.Color(50, 114, 223));
         FindS.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -250,6 +256,16 @@ public class Song extends javax.swing.JFrame {
             }
         });
 
+        SongDelete.setBackground(new java.awt.Color(204, 0, 0));
+        SongDelete.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        SongDelete.setForeground(new java.awt.Color(255, 255, 255));
+        SongDelete.setText("Delete");
+        SongDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SongDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -257,18 +273,20 @@ public class Song extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SearchBoxS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(FindS)
-                        .addGap(18, 18, 18)
-                        .addComponent(UpdateS)
-                        .addGap(18, 18, 18)
-                        .addComponent(AddS))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SearchBoxS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(FindS)
+                            .addGap(18, 18, 18)
+                            .addComponent(UpdateS)
+                            .addGap(18, 18, 18)
+                            .addComponent(AddS))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SongDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -305,7 +323,9 @@ public class Song extends javax.swing.JFrame {
                                 .addComponent(SearchBoxS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(FindS))
                             .addComponent(jLabel2))
-                        .addGap(17, 17, 17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SongDelete)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
@@ -323,9 +343,9 @@ public class Song extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(albumIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -439,12 +459,42 @@ public class Song extends javax.swing.JFrame {
     }//GEN-LAST:event_FindSActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        conn.DisplayData(TableSong);
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void FindSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FindSMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_FindSMouseClicked
+
+    private void SongDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SongDeleteActionPerformed
+        int track = Integer.parseInt(trackS.getText());
+        if(conn.DeleteSongData(track)){
+            System.out.println("success");
+        }
+        else{
+            System.out.println("fail");
+        }
+    }//GEN-LAST:event_SongDeleteActionPerformed
+
+    private void UpdateSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateSActionPerformed
+       int track = Integer.parseInt(trackS.getText());
+       
+        String name = nameS.getText();
+
+        int duration = Integer.parseInt(durationS.getText()); //collect duration data from user in seconds(integer type)
+        int minutes = duration / 60;                            //divide seconds by 60 to make minutes
+        int seconds = duration % 60;                            //using modulus to get remainder of seconds.
+        String durationFormatted = String.format("00:%02d:%02d",minutes,seconds);   /* convert integers into String and format it into "HH:mm:ss" pattern. 
+                                                                                                      "%02d" is an integer format specifier that uses to format with a zero if the value is less than 10 (eg: 00:04:02) */
+        int albumId = Integer.parseInt(albumIn.getText());
+
+        if(conn.UpdateSongData(name,durationFormatted, track, albumId)){
+            System.out.println("SUCCESS");
+        }
+        else{
+            System.out.println("fail");
+        }                                                                                              
+    }//GEN-LAST:event_UpdateSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -485,6 +535,7 @@ public class Song extends javax.swing.JFrame {
     private javax.swing.JButton AddS;
     private javax.swing.JButton FindS;
     private javax.swing.JTextField SearchBoxS;
+    private javax.swing.JButton SongDelete;
     private javax.swing.JTable TableSong;
     private javax.swing.JButton UpdateS;
     private javax.swing.JTextField albumIn;

@@ -163,5 +163,24 @@ public class ArtistConnect  {
         }
      return false;
     }
+    public boolean DeleteArtistData(int id){
+        try{
+            Statement stmt = conn.createStatement();
+            if(SearchData(id)){
+                String query="DELETE FROM artist WHERE artistID="+id+";";
+                stmt.executeUpdate(query);
+                return true;
+            }
+            else{
+                return false;
+            }
+            
+        }catch(SQLException e){
+            return false;
+        }
+    }
+    public boolean artistManagerData(){
+        
+    }
     
 }

@@ -78,6 +78,7 @@ public class Artist extends javax.swing.JFrame {
         refreshBtn = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         managerA = new javax.swing.JTextField();
+        artistDelete = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -260,6 +261,16 @@ public class Artist extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Manager");
 
+        artistDelete.setBackground(new java.awt.Color(204, 0, 0));
+        artistDelete.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        artistDelete.setForeground(new java.awt.Color(255, 255, 255));
+        artistDelete.setText("Delete");
+        artistDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                artistDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -270,6 +281,7 @@ public class Artist extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(261, 261, 261)
@@ -279,8 +291,9 @@ public class Artist extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(UpdateA)
                                 .addGap(18, 18, 18)
-                                .addComponent(AddA))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(AddA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(artistDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(70, 75, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -354,7 +367,9 @@ public class Artist extends javax.swing.JFrame {
                                         .addComponent(UpdateA)
                                         .addComponent(SearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(FindA)))
-                                .addGap(52, 52, 52)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(artistDelete)
+                                .addGap(17, 17, 17)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -508,6 +523,16 @@ public class Artist extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_UpdateAActionPerformed
 
+    private void artistDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistDeleteActionPerformed
+        int id = Integer.parseInt(idInputA.getText());
+        if(conn.DeleteArtistData(id)){
+            System.out.println("success");
+        }
+        else{
+            System.out.println("fail");
+        }
+    }//GEN-LAST:event_artistDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -551,6 +576,7 @@ public class Artist extends javax.swing.JFrame {
     public javax.swing.JTable TableA;
     private javax.swing.JButton UpdateA;
     private javax.swing.JLabel albumL;
+    private javax.swing.JButton artistDelete;
     private javax.swing.JTextField countryA;
     private javax.swing.JTextField firstNameA;
     private javax.swing.JTextField genreA;

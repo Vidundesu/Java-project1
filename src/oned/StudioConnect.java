@@ -117,11 +117,36 @@ public class StudioConnect {
             return false;
         }
     }
-    public boolean UpdateStudioData(){
+    public boolean UpdateStudioData(int id, String name, float cost, String openTime, String closeTime, String location){
         try{
+            Statement stmt = conn.createStatement();
+            if(SearchData(id)){
+            String query="UPDATE studio SET studio_name='"+name+"', hourly_cost="+cost+", open_time='"+openTime+"', close_time='"+closeTime+"', studio_location='"+location+"' "
+                        + "WHERE studioID="+id+"";
+            stmt.executeUpdate(query);
+            return true;
+            }
+            else{
+                return false;
+            }
+        }catch(SQLException e){
+            return false;
+        }
+    }
+    public boolean DeleteStudioData(int id){
+        try{
+            Statement stmt = conn.createStatement();
+            if(SearchData(id)){
+                String query="DELETE FROM studio WHERE artistID="+id+";";
+                stmt.executeUpdate(query);
+                return true;
+            }
+            else{
+                return false;
+            }
             
-        }catch(){
-            
+        }catch(SQLException e){
+            return false;
         }
     }
 }

@@ -136,4 +136,21 @@ public class AlbumConnect {
             return false;
         }
     }
+    public boolean DeleteAlbumData(int id){
+        try{
+            Statement stmt = conn.createStatement();
+            if(SearchData(id)){
+                String query="DELETE FROM album WHERE albumID="+id+";";
+                stmt.executeUpdate(query);
+                return true;
+            }
+            else{
+                return false;
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }
