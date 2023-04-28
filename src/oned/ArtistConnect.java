@@ -179,8 +179,29 @@ public class ArtistConnect  {
             return false;
         }
     }
-    public boolean artistManagerData(){
-        
+    public boolean WorksOnData(JTable WorkTable){
+        try{
+            Statement stmt = conn.createStatement();
+            String query = "SELECT artist.first_name, artist.last_name, album.album_name, album.record_yr FROM works_on JOIN artist ON works_on.AId = artist.artistID JOIN album ON works_on.AlId = album.albumID;";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while(rs.next()){
+                do{
+                    String firstName = rs.getString("first_name");
+                    String lastName  = rs.getString("last_name");
+                    String albumName = rs.getString("album_name");
+                    String recordYr  = rs.getString("record_yr");
+                    
+                    String tbData [] = {firstName, lastName, albumName, recordYr};
+                    DefaultTableModel model = (DefaultTableModel) WorkTable.getModel();
+                    model.addRow(tbData);
+                }while(rs.next());
+            }
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
     
 }

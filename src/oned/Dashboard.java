@@ -21,6 +21,7 @@ public class Dashboard extends javax.swing.JFrame {
     Studio studio;
     Manager manager;
     Records record;
+    ArtistAlbum workOn;
     public Dashboard() {
         
         initComponents();
@@ -76,6 +77,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Select a option");
 
+        artistD.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         artistD.setText("Artist");
         artistD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +85,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        albumD.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         albumD.setText("Album");
         albumD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +93,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        songD.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         songD.setText("Song");
         songD.setOpaque(true);
         songD.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +102,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        studioD.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         studioD.setText("Studio");
         studioD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +110,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        managerD.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         managerD.setText("Manager");
         managerD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +118,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         jButton1.setText("Ongoing Records");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +126,13 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Artists-Managers");
+        jButton2.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        jButton2.setText("Working on Albums");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,7 +163,7 @@ public class Dashboard extends javax.swing.JFrame {
                                 .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(managerD, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,6 +267,11 @@ public class Dashboard extends javax.swing.JFrame {
        record = new Records();
         record.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        workOn = new ArtistAlbum();
+        workOn.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

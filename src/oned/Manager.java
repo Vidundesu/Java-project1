@@ -23,6 +23,7 @@ public class Manager extends javax.swing.JFrame {
     public Manager() {
         conn = new ManagerConnect();
         initComponents();
+        setResizable(false);
         conn.DisplayData(ManagerTable);
     }
 

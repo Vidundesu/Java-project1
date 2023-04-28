@@ -134,7 +134,7 @@ public class SongConnect {
         try{
             Statement stmt = conn.createStatement();
             if(SearchData(track)){
-                String query = "UPDATE song SET song_name='"+name+"', duration='"+duration+"', albumID="+albumId+" WHERE song_name="+track+"";
+                String query = "UPDATE song SET song_name='"+name+"', duration='"+duration+"', albumID="+albumId+" WHERE track_no="+track+"";
                 stmt.executeUpdate(query);
                 return true;
             }  
