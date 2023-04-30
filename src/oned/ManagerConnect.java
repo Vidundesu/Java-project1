@@ -146,7 +146,7 @@ public class ManagerConnect {
                 }
             }
             return true;
-        }catch(SQLException e){
+        }catch(NumberFormatException | SQLException e){
             System.out.println(e.getMessage());
             return false;
         }

@@ -88,10 +88,10 @@ public class SongConnect {
         }
    }
    
-    public boolean SearchSongData(int idIn, JTable TableSong){
+    public boolean SearchSongData(int track, JTable TableSong){
         try{
             Statement stmt = conn.createStatement();
-            String query = "SELECT * FROM song WHERE songID="+idIn+";";
+            String query = "SELECT * FROM song WHERE track_no="+track+";";
             ResultSet rs = stmt.executeQuery(query);
             
             while(rs.next()){
@@ -99,9 +99,9 @@ public class SongConnect {
                 String id = String.valueOf(rs.getInt("songID"));
                 String name = rs.getString("song_name");
                 Time duration = rs.getTime("duration");
-                String albumId = String.valueOf(rs.getInt("albumID"));
                 String trackNo = String.valueOf(rs.getInt("track_no"));
-
+                String albumId = String.valueOf(rs.getInt("albumID"));
+                
                 String tbData[]= {id, name, duration.toString(), albumId, trackNo};
                 DefaultTableModel model = (DefaultTableModel) TableSong.getModel();
                 model.addRow(tbData);

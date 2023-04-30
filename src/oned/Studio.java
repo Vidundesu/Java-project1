@@ -383,6 +383,7 @@ public class Studio extends javax.swing.JFrame {
         //Check whether the function is returning true or false
         if(conn.AddStudioData(id, name, money, openTime, closeTime, location)){
             System.out.println("success");
+             JOptionPane.showMessageDialog(this, "Record Inserted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             System.out.println("fail");
@@ -415,6 +416,7 @@ public class Studio extends javax.swing.JFrame {
         //Check whether the function is returning true or false
         if(conn.UpdateStudioData(id, name, money, openTime, closeTime, location)){
             System.out.println("success");
+             JOptionPane.showMessageDialog(this, "Record Updated Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             System.out.println("fail");
@@ -427,6 +429,7 @@ public class Studio extends javax.swing.JFrame {
       //Check whether the function is returning true or false  
       if(conn.DeleteStudioData(id)){
             System.out.println("success");
+             JOptionPane.showMessageDialog(this, "Record Deleted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             System.out.println("fail");

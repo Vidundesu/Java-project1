@@ -445,11 +445,11 @@ public class Song extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void FindSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindSActionPerformed
-        int id = Integer.parseInt(SearchBoxS.getText());
+        int track = Integer.parseInt(SearchBoxS.getText());
         DefaultTableModel model = (DefaultTableModel) TableSong.getModel();
         model.setRowCount(0);  //set the table row count to 0
            //Check whether the function is returning true or false
-            if(conn.SearchSongData(id,TableSong)){
+            if(conn.SearchSongData(track,TableSong)){
                 System.out.println("success");
             }
             else{
