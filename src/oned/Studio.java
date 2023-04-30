@@ -380,7 +380,7 @@ public class Studio extends javax.swing.JFrame {
         String openTime = timeSt.getText();
         String closeTime = closeTimeSt.getText();
         String location = locationSt.getText();
-        
+        //Check whether the function is returning true or false
         if(conn.AddStudioData(id, name, money, openTime, closeTime, location)){
             System.out.println("success");
         }
@@ -395,7 +395,7 @@ public class Studio extends javax.swing.JFrame {
        int id = Integer.parseInt(SearchBoxSt.getText());
        DefaultTableModel model = (DefaultTableModel) TableStudio.getModel();
        model.setRowCount(0);
-       
+       //Check whether the function is returning true or false
        if(conn.SearchStudioData(id, TableStudio)){
            System.out.println("success");
        }
@@ -412,7 +412,7 @@ public class Studio extends javax.swing.JFrame {
         String openTime = timeSt.getText();
         String closeTime = closeTimeSt.getText();
         String location = locationSt.getText();
-        
+        //Check whether the function is returning true or false
         if(conn.UpdateStudioData(id, name, money, openTime, closeTime, location)){
             System.out.println("success");
         }
@@ -424,7 +424,8 @@ public class Studio extends javax.swing.JFrame {
 
     private void studioDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studioDeleteActionPerformed
       int id = Integer.parseInt(idSt.getText());
-        if(conn.DeleteStudioData(id)){
+      //Check whether the function is returning true or false  
+      if(conn.DeleteStudioData(id)){
             System.out.println("success");
         }
         else{

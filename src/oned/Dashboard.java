@@ -79,6 +79,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         artistD.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         artistD.setText("Artist");
+        artistD.setBorder(null);
         artistD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 artistDActionPerformed(evt);
@@ -95,6 +96,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         songD.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         songD.setText("Song");
+        songD.setBorder(null);
         songD.setOpaque(true);
         songD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

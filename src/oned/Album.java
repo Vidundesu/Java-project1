@@ -449,7 +449,7 @@ public class Album extends javax.swing.JFrame {
         int id = Integer.parseInt(SearchBoxAL.getText());
         DefaultTableModel model = (DefaultTableModel) TableAlbum.getModel();
         model.setRowCount(0);
-        
+        //Check whether the function is returning true or false
         if(conn.SearchAlbumData(id, TableAlbum)){
             System.out.println("success");
         }
@@ -464,8 +464,9 @@ public class Album extends javax.swing.JFrame {
        String name = nameAl.getText();
        String releaseDate = RelyearAl.getText();
        String recordDate = RyearAl.getText();
-       
+       //Check whether the function is returning true or false
        if(conn.UpdateAlbumData(id, name, releaseDate, recordDate)){
+           JOptionPane.showMessageDialog(this, "Record Updated Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
            System.out.println("success");
        }
        else{
@@ -478,9 +479,10 @@ public class Album extends javax.swing.JFrame {
         String name = nameAl.getText();
         String releaseDate = RelyearAl.getText();
         String recordDate = RyearAl.getText();
-
+        //Check whether the function is returning true or false
         if(conn.AddAlbumData(id, name, recordDate, releaseDate)){
             System.out.println("success");
+            JOptionPane.showMessageDialog(this, "Record Inserted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             System.out.println("fail");
@@ -490,7 +492,9 @@ public class Album extends javax.swing.JFrame {
 
     private void albumDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_albumDeleteActionPerformed
         int id = Integer.parseInt(idAl.getText());
+       //Check whether the function is returning true or false
         if(conn.DeleteAlbumData(id)){
+             JOptionPane.showMessageDialog(this, "Record Deleted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("success");
         }
         else{

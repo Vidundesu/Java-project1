@@ -97,7 +97,7 @@ public class ManagerConnect {
         try{
             Statement stmt = conn.createStatement();
             String query = "SELECT manager.managerID, manager.manager_name, manager_contact.contact_no "
-                        +  "FROM manager_contact JOIN manager ON manager_contact.Mid= manager.managerID WHERE managerID="+idIn+";";
+                        +  "FROM manager_contact JOIN manager ON manager_contact.Mid= manager.managerID WHERE managerID="+idIn+";";//using JOIN clause to retrieve data from two tables at once
             ResultSet rs = stmt.executeQuery(query);
             
             while(rs.next()){
@@ -116,11 +116,12 @@ public class ManagerConnect {
             return false;
         }
     }
+    //SearchData method only for UPDATE and DELETE functions
     public boolean SearchData(int idIn){
         try{
              Statement stmt = conn.createStatement();
             String query = "SELECT manager.managerID, manager.manager_name, manager_contact.contact_no "
-                        +  "FROM manager_contact JOIN manager ON manager_contact.Mid= manager.managerID WHERE managerID="+idIn+";";
+                        +  "FROM manager_contact JOIN manager ON manager_contact.Mid= manager.managerID WHERE managerID="+idIn+";"; //using JOIN clause to retrieve data from two tables at once
             ResultSet rs = stmt.executeQuery(query);
               while(rs.next()){
                 do{
@@ -139,8 +140,8 @@ public class ManagerConnect {
                 String query="UPDATE manager SET manager_name = '"+name+"' WHERE managerID="+id+";";
                 stmt.executeUpdate(query);
                 
-                for(int i=0; i<phone.length;i++){
-                    String queryTwo = "UPDATE manager_contact SET contact_no="+phone[i]+" WHERE Mid="+id+";";
+                for(int i=0; i<phone.length;i++){ //to retrieve both phone numbers within the phone[]
+                    String queryTwo = "UPDATE manager_contact SET contact_no="+phone[i]+" WHERE Mid="+id+";"; //repeats with the same id to store seperately
                     stmt.executeUpdate(queryTwo);
                 }
             }
@@ -153,7 +154,7 @@ public class ManagerConnect {
     public boolean DeleteManagerData(int id){
         try{
             Statement stmt = conn.createStatement();
-            if(SearchData(id)){
+            if(SearchData(id)){//check whether the data is available or not
                 String query="DELETE FROM manager WHERE managerID="+id+"; DELETE FROM manager_contact WHERE Mid="+id+"";
                 stmt.executeUpdate(query);
                 

@@ -12,6 +12,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author User
  */
+/*
+===============
+    Outcome
+===============
+    This java class will help the program,
+    To handle INSERT, SEARCH, UPDATE and DELETE functions.
+    To Display Data within the Table: DisplayData() method.
+*/
 public class StudioConnect {
     private final String url;
     private Connection conn;

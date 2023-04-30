@@ -405,9 +405,11 @@ public class Song extends javax.swing.JFrame {
                                                                                                       "%02d" is an integer format specifier that uses to format with a zero if the value is less than 10 (eg: 00:04:02) */
         int trackNo = Integer.parseInt(trackS.getText());
         int albumId = Integer.parseInt(albumIn.getText());
-
+        
+        //Check whether the function is returning true or false
         if(conn.AddSongData(name,durationFormatted, trackNo, albumId)){
             System.out.println("SUCCESS");
+            JOptionPane.showMessageDialog(this, "Record Inserted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             System.out.println("fail");
@@ -445,12 +447,12 @@ public class Song extends javax.swing.JFrame {
     private void FindSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindSActionPerformed
         int id = Integer.parseInt(SearchBoxS.getText());
         DefaultTableModel model = (DefaultTableModel) TableSong.getModel();
-        model.setRowCount(0);  
+        model.setRowCount(0);  //set the table row count to 0
+           //Check whether the function is returning true or false
             if(conn.SearchSongData(id,TableSong)){
                 System.out.println("success");
             }
             else{
-
                 System.out.println("fail");
                 JOptionPane.showMessageDialog(this, "Data not found! " , "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -468,7 +470,9 @@ public class Song extends javax.swing.JFrame {
 
     private void SongDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SongDeleteActionPerformed
         int track = Integer.parseInt(trackS.getText());
+        //Check whether the function is returning true or false
         if(conn.DeleteSongData(track)){
+             JOptionPane.showMessageDialog(this, "Record Deleted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("success");
         }
         else{
@@ -487,8 +491,9 @@ public class Song extends javax.swing.JFrame {
         String durationFormatted = String.format("00:%02d:%02d",minutes,seconds);   /* convert integers into String and format it into "HH:mm:ss" pattern. 
                                                                                                       "%02d" is an integer format specifier that uses to format with a zero if the value is less than 10 (eg: 00:04:02) */
         int albumId = Integer.parseInt(albumIn.getText());
-
+        //Check whether the function is returning true or false
         if(conn.UpdateSongData(name,durationFormatted, track, albumId)){
+            JOptionPane.showMessageDialog(this, "Record Updated Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("SUCCESS");
         }
         else{

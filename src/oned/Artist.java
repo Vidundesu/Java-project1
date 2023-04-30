@@ -4,9 +4,13 @@
  */
 package oned;
 
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.*;
 
 
 /**
@@ -23,7 +27,9 @@ public class Artist extends javax.swing.JFrame {
     Song song;
     Studio studio;
     Manager manager;
-
+    
+    String filename;
+    byte[] artist=null;
     
     ArtistConnect  conn;
     
@@ -79,6 +85,8 @@ public class Artist extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         managerA = new javax.swing.JTextField();
         artistDelete = new javax.swing.JButton();
+        lbl_img = new javax.swing.JLabel();
+        browse = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -271,6 +279,17 @@ public class Artist extends javax.swing.JFrame {
             }
         });
 
+        lbl_img.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        browse.setBackground(new java.awt.Color(50, 114, 233));
+        browse.setForeground(new java.awt.Color(255, 255, 255));
+        browse.setText("Browse");
+        browse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -294,7 +313,7 @@ public class Artist extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(AddA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(artistDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(70, 75, Short.MAX_VALUE))
+                        .addGap(70, 78, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(refreshBtn)
@@ -315,10 +334,12 @@ public class Artist extends javax.swing.JFrame {
                     .addComponent(ByearA)
                     .addComponent(yearA))
                 .addGap(54, 54, 54)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(managerA, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(managerA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                    .addComponent(lbl_img, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(browse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,35 +351,6 @@ public class Artist extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(idInputA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(firstNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lastNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(genreA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(countryA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(yearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(ByearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(refreshBtn))
-                                .addGap(31, 31, 31))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +363,44 @@ public class Artist extends javax.swing.JFrame {
                                 .addComponent(artistDelete)
                                 .addGap(17, 17, 17)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(idInputA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(firstNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lastNameA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel16))
+                                            .addComponent(lbl_img, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(genreA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jLabel17))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(browse)
+                                        .addGap(29, 29, 29)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(countryA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(yearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ByearA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(refreshBtn))
+                                .addGap(31, 31, 31))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -411,14 +440,13 @@ public class Artist extends javax.swing.JFrame {
         String JD = yearA.getText();  
         String DOB = ByearA.getText();
 
-        
-       if(conn.ArtistInsertData(id,firstName,lastName,genre,country,JD,DOB,managerId)) //Check the return statement (true or false) of insert function, according to return value it will print either success or fail
+        //Check whether the function is returning true or false
+       if(conn.ArtistInsertData(id,firstName,lastName,genre,country,JD,DOB,managerId,artist)) 
        {
            JOptionPane.showMessageDialog(this, "Record Inserted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
            System.out.println("Success");
        }
        else{
-          
            System.out.println("fail");
        }
     }//GEN-LAST:event_AddAActionPerformed
@@ -427,8 +455,10 @@ public class Artist extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchBoxActionPerformed
 
+    
     private void albumLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumLMouseClicked
-     if(album==null){
+       //When the label is already clicked the frame will be disabled to prevent more popping more frames up
+        if(album==null){
             album = new Album();
             album.setVisible(true);   
       }
@@ -439,6 +469,7 @@ public class Artist extends javax.swing.JFrame {
     }//GEN-LAST:event_albumLMouseClicked
 
     private void songLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songLMouseClicked
+        //When the label is already clicked the frame will be disabled to prevent more popping more frames up
         if(song==null){
             song = new Song();
             song.setVisible(true);
@@ -451,6 +482,7 @@ public class Artist extends javax.swing.JFrame {
     }//GEN-LAST:event_songLMouseClicked
 
     private void studioLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studioLMouseClicked
+        //When the label is already clicked the frame will be disabled to prevent more popping more frames up
         if(studio==null){
             studio = new Studio();
             studio.setVisible(true);
@@ -462,6 +494,7 @@ public class Artist extends javax.swing.JFrame {
     }//GEN-LAST:event_studioLMouseClicked
 
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        //When the label is already clicked the frame will be disabled to prevent more popping more frames up
         if(manager==null){
             manager = new Manager();
             manager.setVisible(true);
@@ -482,6 +515,7 @@ public class Artist extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TableA.getModel();
         model.setRowCount(0); // remove all data from the table 
         
+        //Check whether the function is returning true or false
         if(conn.SearchArtistData(id, TableA)){
             System.out.println("success");
           
@@ -512,6 +546,8 @@ public class Artist extends javax.swing.JFrame {
         
         String JD = yearA.getText();  
         String DOB = ByearA.getText();
+        
+             //Check whether the function is returning true or false
         if(conn.ArtistUpdateData(id,firstName,lastName,genre,country,JD,DOB,managerId)) 
        {
            JOptionPane.showMessageDialog(this, "Record Updated Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -525,13 +561,41 @@ public class Artist extends javax.swing.JFrame {
 
     private void artistDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistDeleteActionPerformed
         int id = Integer.parseInt(idInputA.getText());
+             //Check whether the function is returning true or false
         if(conn.DeleteArtistData(id)){
+             JOptionPane.showMessageDialog(this, "Record Deleted Successfully! " , "Error", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("success");
         }
         else{
             System.out.println("fail");
         }
     }//GEN-LAST:event_artistDeleteActionPerformed
+
+    private void browseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseActionPerformed
+       /*
+        image uploading code snip
+        */
+       JFileChooser chooser = new JFileChooser();
+       chooser.showOpenDialog(null); //show the open fileDialog
+       File f = chooser.getSelectedFile(); //Get the selected file
+       filename = f.getAbsolutePath(); //get the file path
+       ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(lbl_img.getWidth(),lbl_img.getHeight(),Image.SCALE_SMOOTH));
+       lbl_img.setIcon(imageIcon); //set the image in the label to show preview
+       try{
+           File image = new File(filename);
+           FileInputStream fis = new FileInputStream(image);
+           ByteArrayOutputStream bos = new ByteArrayOutputStream();
+           byte[] buf = new byte[1024];
+           
+           for(int i;(i=fis.read(buf))!=-1;){
+               bos.write(buf);
+           }
+           
+           artist=bos.toByteArray();
+       }catch(Exception e){
+           System.out.println("fail");
+       }
+    }//GEN-LAST:event_browseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -577,6 +641,7 @@ public class Artist extends javax.swing.JFrame {
     private javax.swing.JButton UpdateA;
     private javax.swing.JLabel albumL;
     private javax.swing.JButton artistDelete;
+    private javax.swing.JButton browse;
     private javax.swing.JTextField countryA;
     private javax.swing.JTextField firstNameA;
     private javax.swing.JTextField genreA;
@@ -597,6 +662,7 @@ public class Artist extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastNameA;
+    private javax.swing.JLabel lbl_img;
     private javax.swing.JTextField managerA;
     private javax.swing.JButton refreshBtn;
     private javax.swing.JLabel songL;

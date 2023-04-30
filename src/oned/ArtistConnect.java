@@ -29,6 +29,7 @@ public class ArtistConnect  {
     
     private final String url;
     private Connection conn;
+    private byte[] picture;
     
     
     public ArtistConnect(){
@@ -55,19 +56,27 @@ public class ArtistConnect  {
         }
         
     }
-    public boolean ArtistInsertData(int id, String firstName, String lastName, String genre, String country, String JD, String DOB, int managerID){
-        try{
-            Statement stmt = conn.createStatement();
-            String query="INSERT INTO artist(artistID,first_name,last_name,genre,country,joining_date,DOB) VALUES "
-                        + "("+id+",'"+firstName+"','"+lastName+"','"+genre+"','"+country+"','"+JD+"','"+DOB+"',"+managerID+")";
-            stmt.execute(query);
-            return true;
-        }catch(SQLException e){
-            
-            return false;
-        }
-        
+   public boolean ArtistInsertData(int id, String firstName, String lastName, String genre, String country, String JD, String DOB, int managerID, byte[] image){
+    try{
+        String query = "INSERT INTO artist(artistID,first_name,last_name,genre,country,joining_date,DOB,managerID,image) VALUES (?,?,?,?,?,?,?,?,?)";
+        PreparedStatement pstmt = conn.prepareStatement(query); //its much more efficient and fast using PreparedStatement instead of Statement
+        pstmt.setInt(1, id);
+        pstmt.setString(2, firstName);
+        pstmt.setString(3, lastName);
+        pstmt.setString(4, genre);
+        pstmt.setString(5, country);
+        pstmt.setString(6, JD);
+        pstmt.setString(7, DOB);
+        pstmt.setInt(8, managerID);
+        pstmt.setBytes(9, image);
+        pstmt.executeUpdate();
+        return true;
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+        return false;
     }
+}
+
     public boolean SearchArtistData(int idIn, JTable TableA){ //Main search function on the program, Gather id through searchBox and display them in the Main table
         try{
             Statement stmt = conn.createStatement();
@@ -117,7 +126,7 @@ public class ArtistConnect  {
         }
         return false;
     }
-    
+    //Data update function
     public boolean ArtistUpdateData(int id, String firstName, String lastName, String genre, String country, String JD, String DOB, int managerID){
         try{
             Statement stmt = conn.createStatement();    
@@ -137,6 +146,7 @@ public class ArtistConnect  {
         }
         
     }
+    //Display data function use to display data within its frame table
     public boolean displayData(JTable TableA) {
     try {
         Statement stmt = conn.createStatement();

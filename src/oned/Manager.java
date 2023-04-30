@@ -4,6 +4,7 @@
  */
 package oned;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -360,8 +361,9 @@ public class Manager extends javax.swing.JFrame {
     private void AddMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddMActionPerformed
         int id = Integer.parseInt(idM.getText());
         String name = nameM.getText();
-        
+        //get two phone numbers
         int phone[] = {Integer.parseInt(phoneM.getText()),Integer.parseInt(phoneM2.getText())};
+        //Check whether the function is returning true or false
         if(conn.AddManagerData(id, phone, name)){
             System.out.println("success");
         }
@@ -374,19 +376,22 @@ public class Manager extends javax.swing.JFrame {
       int id = Integer.parseInt(SearchBoxM.getText());
       DefaultTableModel model = (DefaultTableModel) ManagerTable.getModel();
       model.setRowCount(0);
+      //Check whether the function is returning true or false
       if(conn.SearchManagerData(id, ManagerTable)){
           System.out.println("success");
       }
       else{
           System.out.println("fail");
+          JOptionPane.showMessageDialog(this, "Data not found! " , "Error", JOptionPane.ERROR_MESSAGE);
       }
     }//GEN-LAST:event_FindMActionPerformed
 
     private void UpdateMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateMActionPerformed
           int id = Integer.parseInt(idM.getText());
         String name = nameM.getText();
-        
+        //get two phone numbers
         int phone[] = {Integer.parseInt(phoneM.getText()),Integer.parseInt(phoneM2.getText())};
+        //Check whether the function is returning true or false
         if(conn.UpdateManagerData(id, phone, name)){
             System.out.println("success");
         }
@@ -397,6 +402,7 @@ public class Manager extends javax.swing.JFrame {
 
     private void managerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerDeleteActionPerformed
        int id = Integer.parseInt(idM.getText());
+      //Check whether the function is returning true or false
        if(conn.DeleteManagerData(id)){
            System.out.println("success");
        }
